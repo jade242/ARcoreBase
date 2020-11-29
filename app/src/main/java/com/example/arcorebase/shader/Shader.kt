@@ -23,12 +23,12 @@ class Shader {
             val code:String = readShaderFileFromAssets(context,filename)
 
             // Compiles shader code.
-            var shader = GLES20.glCreateShader(type)
-            GLES20.glShaderSource(shader, code)//
-            GLES20.glCompileShader(shader)
+            var shader = GLES20.glCreateShader(type)//バーテックスシェーダかフラグメントシェーダtypeのshaderを作成
+            GLES20.glShaderSource(shader, code)//作成したシェーダにソースを設定
+            GLES20.glCompileShader(shader)//シェーダをコンパイル
+            //コンパイルに成功したかどうかのチェック
             val compileStatus = IntArray(1)
             GLES20.glGetShaderiv(shader,GLES20.GL_COMPILE_STATUS,compileStatus,0)
-
             if(compileStatus[0] == 0){
                 Log.e(tag, "Error compiling shader: " + GLES20.glGetShaderInfoLog(shader))
                 GLES20.glDeleteShader(shader)
