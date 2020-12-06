@@ -38,10 +38,11 @@ class BackgroundRenderer(context: Context) {
     init {
         //テクスチャを作成
         val textures = IntArray(1)//1つのテクスチャを作成
-        GLES20.glGenTextures(1, textures, 0)//空きテクスチャIDを1つtexturesに代入
+        GLES20.glGenTextures(1, textures, 0)//空きテクスチャIDを1つtexturesに代入してtexturesというテクスチャオブジェクトを生成
         _cameraTextureId = textures[0]//空きテクスチャIDをcameraTextureIdに代入。
         val textureTarget = GLES11Ext.GL_TEXTURE_EXTERNAL_OES//たぶんカメラから取得するためのtargetType
         GLES20.glBindTexture(textureTarget, _cameraTextureId)//カメラのtargetTypeでテクスチャの次元を指定。
+        // cameraTexutreIdというテクスチャIDの操作を行うことをOpenGLに伝える
         //テクスチャの各種設定
         GLES20.glTexParameteri(textureTarget, GLES20.GL_TEXTURE_WRAP_S, GLES20.GL_CLAMP_TO_EDGE)
         GLES20.glTexParameteri(textureTarget, GLES20.GL_TEXTURE_WRAP_T, GLES20.GL_CLAMP_TO_EDGE)
@@ -115,8 +116,10 @@ class BackgroundRenderer(context: Context) {
         }
 
         _quadTexCords.position(0)
-        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)//テクスチャ0を有効化にする。
+        GLES20.glActiveTexture(GLES20.GL_TEXTURE0)//テクスチャ0を有効化する。
+
         //カメラのtargetTypeでテクスチャの次元を指定。指定した名前のテクスチャを有効にする。
+        //_cameraTextureIdはinit()で空きテクスチャID(テクスチャ0)を代入されている。
         //つまり、テクスチャ0に_cameraTextureIdをバインドして、このテクスチャIDの操作を行うことをOpenGLに伝える。
         GLES20.glBindTexture(GLES11Ext.GL_TEXTURE_EXTERNAL_OES, _cameraTextureId)
         GLES20.glUseProgram(_program)//シェーダープログラムを利用する
