@@ -1,1 +1,1 @@
-droid.jpg|.//droid.jpg
+droidCard.jpg|.//droidCard.jpg

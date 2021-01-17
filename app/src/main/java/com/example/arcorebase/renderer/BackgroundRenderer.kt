@@ -38,7 +38,7 @@ class BackgroundRenderer(context: Context) {
     init {
         //テクスチャを作成
         val textures = IntArray(1)//1つのテクスチャを作成
-        GLES20.glGenTextures(1, textures, 0)//空きテクスチャIDを1つtexturesに代入してtexturesというテクスチャオブジェクトを生成
+        GLES20.glGenTextures(textures.size, textures, 0)//空きテクスチャIDを1つtexturesに代入してtexturesというテクスチャオブジェクトを生成
         _cameraTextureId = textures[0]//空きテクスチャIDをcameraTextureIdに代入。
         val textureTarget = GLES11Ext.GL_TEXTURE_EXTERNAL_OES//たぶんカメラから取得するためのtargetType
         GLES20.glBindTexture(textureTarget, _cameraTextureId)//カメラのtargetTypeでテクスチャの次元を指定。
